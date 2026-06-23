@@ -13,8 +13,8 @@ st.set_page_config(
 
 @st.cache_resource
 def load_models():
-    model = load_model("models/heart_disease_model.keras")
-    scaler = joblib.load("models/scaler.pkl")
+    model = load_model("../models/heart_disease_model.keras")
+    scaler = joblib.load("../models/scaler.pkl")
     return model, scaler
 
 
