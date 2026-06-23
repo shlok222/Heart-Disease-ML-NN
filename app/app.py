@@ -4,9 +4,6 @@ import joblib
 from tensorflow.keras.models import load_model
 
 
-# -----------------------------
-# PAGE CONFIG
-# -----------------------------
 st.set_page_config(
     page_title="Heart Disease Predictor",
     page_icon="❤️",
@@ -14,22 +11,15 @@ st.set_page_config(
 )
 
 
-# -----------------------------
-# LOAD MODEL + SCALER
-# -----------------------------
 @st.cache_resource
 def load_models():
-    model = load_model("../models/heart_disease_model.keras")
-    scaler = joblib.load("../models/scaler.pkl")
+    model = load_model("models/heart_disease_model.keras")
+    scaler = joblib.load("models/scaler.pkl")
     return model, scaler
 
 
 model, scaler = load_models()
 
-
-# -----------------------------
-# TITLE (CENTERED + BIG)
-# -----------------------------
 st.markdown("""
     <h1 style='text-align: center; color: #e63946; font-size: 42px;'>
         ❤️ Heart Disease Risk Predictor
@@ -44,10 +34,6 @@ st.markdown("""
 
 st.markdown("---")
 
-
-# -----------------------------
-# INPUTS (CENTERED STYLE)
-# -----------------------------
 col1, col2 = st.columns(2)
 
 with col1:
@@ -68,17 +54,11 @@ with col2:
     thal = st.selectbox("Thal", [0, 1, 2, 3])
 
 
-# -----------------------------
-# BUTTON
-# -----------------------------
 st.markdown("<br>", unsafe_allow_html=True)
 
 predict = st.button("🔍 Predict Heart Disease Risk", use_container_width=True)
 
 
-# -----------------------------
-# PREDICTION
-# -----------------------------
 if predict:
 
     input_data = np.array([[
@@ -94,9 +74,7 @@ if predict:
     st.markdown("---")
     st.subheader("🧠 Prediction Result")
 
-    # -------------------------
-    # Risk Levels
-    # -------------------------
+    
     if prob < 0.3:
         st.success("🟢 LOW RISK")
     elif prob < 0.6:
@@ -104,9 +82,7 @@ if predict:
     else:
         st.error("🔴 HIGH RISK")
 
-    # -------------------------
-    # Probability Display
-    # -------------------------
+    
     st.markdown(f"""
         <div style="
             padding:20px;
@@ -122,9 +98,6 @@ if predict:
     st.progress(float(prob))
 
 
-# -----------------------------
-# FOOTER
-# -----------------------------
 st.markdown("---")
 st.write("""
 📌 Model Insight:
